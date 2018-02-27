@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.when;
 
 public class EmployeeServiceTest {
@@ -37,4 +38,18 @@ public class EmployeeServiceTest {
         assertEquals(3, employeeList.size());
     }
 
+    @Test
+    public void getEmployeeById() {
+        Employee employee = new Employee(1L, "Mike", "Newell", "mn@test.com", "123456789","Worker",true);
+        when(employeeRepository.findOne(anyLong())).thenReturn(employee);
+        Employee employeeById = employeeService.getEmployeeById(1L);
+        assertEquals(employee.getId(), employeeById.getId());
+        assertEquals(employee.getName(), employeeById.getName());
+        assertEquals(employee.getLastName(), employeeById.getLastName());
+        assertEquals(employee.getEmail(), employeeById.getEmail());
+        assertEquals(employee.getPhone(), employeeById.getPhone());
+        assertEquals(employee.getPosition(), employeeById.getPosition());
+        assertEquals(employee.isActive(), employeeById.isActive());
+
+    }
 }
