@@ -37,4 +37,22 @@ public class EmployeeRestControllerTest {
                 .andExpect(jsonPath("$", hasSize(28))).andDo(print());
     }
 
+    @Test
+    public void getEmployeeById() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/employee/1").accept(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").exists())
+                .andExpect(jsonPath("$.name").exists())
+                .andExpect(jsonPath("$.lastName").exists())
+                .andExpect(jsonPath("$.email").exists())
+                .andExpect(jsonPath("$.phone").exists())
+                .andExpect(jsonPath("$.position").exists())
+                .andExpect(jsonPath("$.active").exists())
+                .andExpect(jsonPath("$.id").value(1))
+                .andExpect(jsonPath("$.name").value("Brandon"))
+                .andExpect(jsonPath("$.lastName").value("Sanderson"))
+                .andExpect(jsonPath("$.email").value("bs@test.com"))
+                .andExpect(jsonPath("$.phone").value("192748192"))
+                .andExpect(jsonPath("$.position").value("Cook"))
+                .andExpect(jsonPath("$.active").value(true));
+    }
 }
